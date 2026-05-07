@@ -71,18 +71,25 @@ class TuringMachine:
             print("[*] Kaydır ve Topla (Shift & Add) İşlemi:")
             result = 0
             multiplicand_val = int(self.multiplicand, 2)
+            multiplier_val = int(self.multiplier, 2)
             
-            # Sağdan sola doğru bitleri işleme
-            for i, bit in enumerate(reversed(self.multiplier)):
-                print(f"  -> Sağdan bit {i+1} = {bit}")
-                if bit == '1':
-                    shifted_val = multiplicand_val << i
-                    result += shifted_val
-                    print(f"     Bit '1': {self.multiplicand} sola {i} kez kaydırıldı (Değer: {bin(shifted_val)[2:]}) ve eklendi.")
-                else:
-                    print(f"     Bit '0': Sadece kaydırma yapıldı, toplama yapılmadı.")
+            # Yutan eleman (0) kontrolü (Eğer 0 ile çarpıyorsak shift & add kısmını atlıyoruz)
+            if multiplicand_val == 0 or multiplier_val == 0:
+                print("[*] Bilgi: Yutan eleman (0) tespit edildi! Gereksiz kaydırma işlemleri atlanıyor.")
+                self.result_binary = "0"
+            else:
             
-            self.result_binary = bin(result)[2:]
+                # Sağdan sola doğru bitleri işleme
+                for i, bit in enumerate(reversed(self.multiplier)):
+                    print(f"  -> Sağdan bit {i+1} = {bit}")
+                    if bit == '1':
+                        shifted_val = multiplicand_val << i
+                        result += shifted_val
+                        print(f"     Bit '1': {self.multiplicand} sola {i} kez kaydırıldı (Değer: {bin(shifted_val)[2:]}) ve eklendi.")
+                    else:
+                        print(f"     Bit '0': Sadece kaydırma yapıldı, toplama yapılmadı.")
+
+                self.result_binary = bin(result)[2:]
             self.state = 'q_sonuc_yazma'
             print("-" * 30)
 
