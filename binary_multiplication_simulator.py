@@ -86,8 +86,12 @@ class TuringMachine:
                         shifted_val = multiplicand_val << i
                         result += shifted_val
                         print(f"     Bit '1': {self.multiplicand} sola {i} kez kaydırıldı (Değer: {bin(shifted_val)[2:]}) ve eklendi.")
+                        # Ara Toplamı Gösterme
+                        print(f"     [+] Güncel Ara Toplam: {bin(result)[2:]}") 
                     else:
                         print(f"     Bit '0': Sadece kaydırma yapıldı, toplama yapılmadı.")
+                        # 0 durumunda da mevcut toplamı hatırlatalım
+                        print(f"     [=] Ara Toplam Sabit: {bin(result)[2:] if result > 0 else '0'}")
 
                 self.result_binary = bin(result)[2:]
             self.state = 'q_sonuc_yazma'
